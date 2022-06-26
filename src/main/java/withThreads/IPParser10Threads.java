@@ -19,12 +19,13 @@ public class IPParser10Threads {
     private static final Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
     private static Matcher matcher;
     private static AtomicBoolean allLinesAreReadFromTheFile = new AtomicBoolean(false);
-    private static final int numberOfThreads = 10;
+    private static final int numberOfThreads = 10; // TODO:: задаем количество потоков
+    private static long startTime;
 
     public static void main(String[] args) throws IOException {
-        long startTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
 
-        //читаем уникальный строки из файла
+        //читаем уникальные строки из файла
         readUniqueLinesFromFile();
 
         //переводим сет в аррейлист
@@ -43,17 +44,19 @@ public class IPParser10Threads {
             if (matcher.find()) uniqueIPs.add(matcher.group());
         }
 
-        long elapsedTime = ((System.currentTimeMillis() - startTime) / 1000) % 60;
-        System.out.println("Выделены уникальные IP-адреса: ");
-        uniqueIPs.stream().sorted().forEach(System.out::println);
-        System.out.println("\nЗатраченное время: " + elapsedTime + " секунд");
+        printParcingResults();
     }
 
 
 
 
 
-
+    public static void printParcingResults() {
+        long elapsedTime = ((System.currentTimeMillis() - startTime) / 1000) % 60;
+        System.out.println("Выделены уникальные IP-адреса: ");
+        uniqueIPs.stream().sorted().forEach(System.out::println);
+        System.out.println("\nЗатраченное время: " + elapsedTime + " секунд");
+    }
     public static AtomicBoolean getAllLinesAreReadFromTheFile() {
         return allLinesAreReadFromTheFile;
     }

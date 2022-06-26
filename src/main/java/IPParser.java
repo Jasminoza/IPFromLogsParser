@@ -19,9 +19,10 @@ public class IPParser {
     private static final String IPADDRESS_PATTERN = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
     private static final Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
     private static Matcher matcher;
+    private static long startTime;
 
     public static void main(String[] args) throws IOException {
-        long startTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
 
         //читаем уникальные строки из файла
         readUniqueLinesFromFile();
@@ -32,10 +33,8 @@ public class IPParser {
             if (matcher.find()) uniqueIPs.add(matcher.group());
         }
 
-        long elapsedTime = ((System.currentTimeMillis() - startTime) / 1000) % 60;
-        System.out.println("Выделены уникальные IP-адреса: ");
-        uniqueIPs.stream().sorted().forEach(System.out::println);
-        System.out.println("\nЗатраченное время: " + elapsedTime + " секунд");
+        //выводим результат
+        printParcingResults();
     }
 
     public static void readUniqueLinesFromFile() throws IOException {
@@ -45,5 +44,12 @@ public class IPParser {
         while ((line = bufferedReader.readLine()) != null) {
             uniqueLines.add(line);
         }
+    }
+
+    public static void printParcingResults() {
+        long elapsedTime = ((System.currentTimeMillis() - startTime) / 1000) % 60;
+        System.out.println("Выделены уникальные IP-адреса: ");
+        uniqueIPs.stream().sorted().forEach(System.out::println);
+        System.out.println("\nЗатраченное время: " + elapsedTime + " секунд");
     }
 }
