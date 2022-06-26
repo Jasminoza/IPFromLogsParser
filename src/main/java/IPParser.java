@@ -14,22 +14,20 @@ public class IPParser {
     private static final String IPADDRESS_PATTERN = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
     private static final Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
     private static Matcher matcher;
-    private static long startTime;
+    private static final long startTime = System.currentTimeMillis();
 
     public static void main(String[] args) throws IOException {
-        startTime = System.currentTimeMillis();
-
-        //читаем уникальные строки из файла
         readUniqueLinesFromFile();
+        makeParcing();
+        printParcingResults();
+    }
 
-        //парсим
+
+    public static void makeParcing() {
         for (String line : uniqueLines) {
             matcher = pattern.matcher(line);
             if (matcher.find()) uniqueIPs.add(matcher.group());
         }
-
-        //выводим результат
-        printParcingResults();
     }
 
     public static void readUniqueLinesFromFile() throws IOException {
