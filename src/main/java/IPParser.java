@@ -9,10 +9,11 @@ import java.util.regex.Pattern;
  */
 public class IPParser {
     public static void main(String[] args) throws IOException {
+        long startTime = System.currentTimeMillis();
+
         File logFile = new File("src/main/resources/log.txt");
         Set<String> uniqueIPs = new HashSet<>();
         Set<String> uniqueLines = new HashSet<>();
-        long startTime = System.currentTimeMillis();
 
         FileInputStream fis = new FileInputStream(logFile);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fis));
