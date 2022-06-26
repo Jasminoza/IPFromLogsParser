@@ -1,13 +1,8 @@
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static withThreads.RangesForThreads.setRangesForThreads;
 
 /**
  * В данном варианте парсинг происходит "в лоб", без применения многопоточности.
